@@ -23,3 +23,6 @@ protobuf:
 
 test: format
 	ginkgo -r -race -randomizeSuites ./
+
+upgrade:
+	go get -u ./...

@@ -10,6 +10,29 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install protoc
+        # See https://circleci.com/developer/orbs/orb/moorara/golang#orb-source
+          command: |
+              protoc_release=${protoc_release:-$(curl -s https://api.github.com/repos/protocolbuffers/protobuf/releases/latest | jq -r '.tag_name')}
+              protoc_version=${protoc_release#v}
+
+              echo -e '\033[1;32m' "Installing protoc ${protoc_release} ..." '\033[0m'
+
+              os=linux
+              arch=x86_64
+              archive=./protoc.zip
+              path=protoc
+
+              curl -fsSL "https://github.com/protocolbuffers/protobuf/releases/download/${protoc_release}/protoc-${protoc_version}-${os}-${arch}.zip" -o ${archive}
+              unzip -d ${path} ${archive}
+              sudo mv "${path}/bin/protoc" /usr/local/bin/protoc
+              sudo mv "${path}/include/google" /usr/local/include/
+              sudo chmod +x /usr/local/bin/protoc
+              rm -rf ${archive} ${path}
+
+              echo -e '\033[1;32m' "protoc ${protoc_release} installed successfully" '\033[0m'
+
       - restore_cache:
           keys:
             - v1-pkg-cache

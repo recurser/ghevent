@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  working_directory: ~/ghevent
+  build:
+    docker:
+      # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
+      - image: circleci/golang:1.15
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-pkg-cache
+
+      - run:
+          name: Install dependencies
+          command: make dependencies
+
+      - run:
+          name: Add golint to the path
+          command: echo "export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH" >> $BASH_ENV
+
+      - run: make
+
+      - save_cache:
+          key: v1-pkg-cache
+          paths:
+            - "/go/pkg"
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: raw-test-output
+
+      - store_test_results:
+          path: /tmp/test-results

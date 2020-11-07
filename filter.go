@@ -44,18 +44,8 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 			*e.Action == "deleted" ||
 			*e.Action == "renamed" ||
 			*e.Action == "member_added" ||
+			*e.Action == "member_invited" ||
 			*e.Action == "member_removed") {
-			return event, true
-		}
-
-	// PullRequestReviewEvent is triggered when a review is submitted on a pull request. See:
-	//
-	// - https://developer.github.com/webhooks/event-payloads/#pull_request_review
-	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L651
-	//
-	// Action is always "submitted".
-	case *github.PullRequestReviewEvent:
-		if e.Action != nil && *e.Action == "submitted" {
 			return event, true
 		}
 
@@ -71,6 +61,17 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 			*e.Action == "review_request_removed" ||
 			*e.Action == "review_requested" ||
 			*e.Action == "synchronize") {
+			return event, true
+		}
+
+	// PullRequestReviewEvent is triggered when a review is submitted on a pull request. See:
+	//
+	// - https://developer.github.com/webhooks/event-payloads/#pull_request_review
+	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L651
+	//
+	// Action is always "submitted".
+	case *github.PullRequestReviewEvent:
+		if e.Action != nil && *e.Action == "submitted" {
 			return event, true
 		}
 

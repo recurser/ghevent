@@ -75,6 +75,15 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 			return event, true
 		}
 
+	// PushEvent is triggered when commits are pushed to a branch or tag. See:
+	//
+	// - https://developer.github.com/webhooks/event-payloads/#push
+	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L651
+	//
+	// Action is not set .
+	case *github.PushEvent:
+		return event, true
+
 	// RepositoryEvent is triggered when a repository is created, deleted etc. See:
 	//
 	// - https://developer.github.com/webhooks/event-payloads/#repository

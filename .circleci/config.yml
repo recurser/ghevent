@@ -42,8 +42,13 @@ jobs:
           command: make dependencies
 
       - run:
-          name: Add golint to the path
-          command: echo "export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH" >> $BASH_ENV
+          name: Install golangci-lint
+          command: |
+            curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.33.0
+
+      - run:
+          name: Add golint and golangci-lint to the path
+          command: echo "export PATH=$GOPATH/bin:/usr/local/go/bin:$HOME/project/bin:$PATH" >> $BASH_ENV
 
       - run: make
 

@@ -17,6 +17,7 @@ format:
 
 lint:
 	golint $(sources)
+	golangci-lint run
 
 protobuf:
 	protoc -I=./ --go_out=./ ./event.proto

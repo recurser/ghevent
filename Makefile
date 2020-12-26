@@ -1,7 +1,7 @@
 # Miscellaneous make tasks.
 sources := .
 
-all: clean format lint protobuf test
+all: clean upgrade format lint protobuf test
 
 clean:
 	go clean

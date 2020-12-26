@@ -7,6 +7,6 @@ require (
 	github.com/google/go-github/v32 v32.1.0
 	github.com/onsi/ginkgo v1.14.2
 	github.com/onsi/gomega v1.10.3
-	golang.org/x/crypto v0.0.0-20201217014255-9d1352758620 // indirect
+	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad // indirect
 	google.golang.org/protobuf v1.25.0
 )

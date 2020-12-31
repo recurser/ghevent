@@ -90,12 +90,14 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L812
 	case *github.RepositoryEvent:
 		if e.Action != nil && (false ||
+			*e.Action == "archived" ||
 			*e.Action == "created" ||
 			*e.Action == "deleted" ||
-			*e.Action == "archived" ||
-			*e.Action == "unarchived" ||
+			*e.Action == "privatized" ||
+			*e.Action == "publicized" ||
 			*e.Action == "renamed" ||
-			*e.Action == "transferred") {
+			*e.Action == "transferred" ||
+			*e.Action == "unarchived") {
 			return event, true
 		}
 

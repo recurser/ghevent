@@ -1,7 +1,7 @@
 package ghevent
 
 import (
-	"github.com/google/go-github/v32/github"
+	"github.com/google/go-github/v33/github"
 )
 
 // FilterByAction decides whether the given event should be handled or dropped.

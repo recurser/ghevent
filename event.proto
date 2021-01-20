@@ -8,4 +8,5 @@ message Event {
   string organizationID = 1;
   string eventType = 2;
   bytes payload = 3;
+  string source = 4;
 }

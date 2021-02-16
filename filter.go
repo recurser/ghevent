@@ -64,6 +64,18 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 			return event, true
 		}
 
+	// PullRequestReviewCommentEvent is triggered when a comment is submitted as part of a pull request review. See:
+	//
+	// - https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#pull_request_review_comment
+	// - https://github.com/google/go-github/blob/a64f3a6d084e5a38c26b8cac35101d47981298e3/github/event_types.go#L672
+	case *github.PullRequestReviewCommentEvent:
+		if e.Action != nil && (false ||
+			*e.Action == "created" ||
+			*e.Action == "deleted" ||
+			*e.Action == "edited") {
+			return event, true
+		}
+
 	// PullRequestReviewEvent is triggered when a review is submitted on a pull request. See:
 	//
 	// - https://developer.github.com/webhooks/event-payloads/#pull_request_review

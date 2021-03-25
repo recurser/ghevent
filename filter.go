@@ -102,7 +102,12 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L791
 	case *github.ReleaseEvent:
 		if e.Action != nil && (false ||
+			*e.Action == "created" ||
 			*e.Action == "deleted" ||
+			*e.Action == "edited" ||
+			*e.Action == "prereleased" ||
+			*e.Action == "published" ||
+			*e.Action == "unpublished" ||
 			*e.Action == "released") {
 			return event, true
 		}

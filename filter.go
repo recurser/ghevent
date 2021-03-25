@@ -96,6 +96,17 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 	case *github.PushEvent:
 		return event, true
 
+	// ReleaseEvent is triggered when a release is created, updated or deleted. See:
+	//
+	// - https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#release
+	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L791
+	case *github.ReleaseEvent:
+		if e.Action != nil && (false ||
+			*e.Action == "deleted" ||
+			*e.Action == "released") {
+			return event, true
+		}
+
 	// RepositoryEvent is triggered when a repository is created, deleted etc. See:
 	//
 	// - https://developer.github.com/webhooks/event-payloads/#repository

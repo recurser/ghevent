@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package ghevent;
 
-option go_package = ".;ghevent";
+option go_package = "./;ghevent";
 
 message Event {
   string organizationID = 1;

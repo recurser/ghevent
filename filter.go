@@ -68,11 +68,13 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 	case *github.PullRequestEvent:
 		if e.Action != nil && (false ||
 			*e.Action == "closed" ||
+			*e.Action == "labeled" ||
 			*e.Action == "opened" ||
 			*e.Action == "reopened" ||
 			*e.Action == "review_request_removed" ||
 			*e.Action == "review_requested" ||
-			*e.Action == "synchronize") {
+			*e.Action == "synchronize" ||
+			*e.Action == "unlabeled") {
 			return event, true
 		}
 

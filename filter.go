@@ -12,6 +12,18 @@ import (
 func FilterByAction(event interface{}) (interface{}, bool) {
 	switch e := event.(type) {
 
+	// LabelEvent is triggered when a label is created, edited or deleted. See:
+	//
+	// - https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#label
+	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L352
+	case *github.LabelEvent:
+		if e.Action != nil && (false ||
+			*e.Action == "created" ||
+			*e.Action == "deleted" ||
+			*e.Action == "edited") {
+			return event, true
+		}
+
 	// MembershipEvent is triggered when a user is added or removed from a team. See:
 	//
 	// - https://developer.github.com/webhooks/event-payloads/#membership

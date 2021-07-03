@@ -12,6 +12,26 @@ import (
 func FilterByAction(event interface{}) (interface{}, bool) {
 	switch e := event.(type) {
 
+	// CheckRunEvent is triggered when a check run is created, completed, or rerequested. See:
+	//
+	// - https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#check_run
+	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L22
+	case *github.CheckRunEvent:
+		if e.Action != nil && (false ||
+			*e.Action == "completed") {
+			return event, true
+		}
+
+	// CheckSuiteEvent is triggered when a check suite is completed, requested, or rerequested. See:
+	//
+	// - https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#check_suite
+	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L41
+	case *github.CheckSuiteEvent:
+		if e.Action != nil && (false ||
+			*e.Action == "completed") {
+			return event, true
+		}
+
 	// LabelEvent is triggered when a label is created, edited or deleted. See:
 	//
 	// - https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#label

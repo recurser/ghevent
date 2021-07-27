@@ -17,8 +17,7 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 	// - https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#check_run
 	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L22
 	case *github.CheckRunEvent:
-		if e.Action != nil && (false ||
-			*e.Action == "completed") {
+		if e.Action != nil {
 			return event, true
 		}
 
@@ -27,8 +26,7 @@ func FilterByAction(event interface{}) (interface{}, bool) {
 	// - https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#check_suite
 	// - https://github.com/google/go-github/blob/8da2410a408643f0a1781c0f748b9c3b7039402b/github/event_types.go#L41
 	case *github.CheckSuiteEvent:
-		if e.Action != nil && (false ||
-			*e.Action == "completed") {
+		if e.Action != nil {
 			return event, true
 		}
 
